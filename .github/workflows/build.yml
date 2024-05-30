@@ -33,6 +33,8 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
           sudo apt-get update
           sudo apt-get install trivy -y
+          
           #command to scan files
-          trivy fs .
+      - name: Scan files with Trivy
+        run: trivy fs --exit-code 1 --severity MEDIUM,HIGH,CRITICAL .
 
