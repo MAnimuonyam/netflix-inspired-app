@@ -24,6 +24,7 @@ jobs:
       #   timeout-minutes: 5
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: install trivy
         run: |
           #install trivy
@@ -35,4 +36,12 @@ jobs:
           #command to scan files
           trivy fs .
 
-      
+      - name: Docker build and push
+        run: |
+          #run commands to build and push docker images
+          docker build --build-arg TMDB_V3_API_KEY=7501eaa582427cd334f4b625faed43e3 -t netflix .
+          docker tag netflix marcusb2006/netflix:latest
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          docker push marcusb2006/netflix:latest  
+        env:
+          DOCKER_CLI_ACI: 1
