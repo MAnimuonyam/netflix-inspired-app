@@ -46,16 +46,16 @@ jobs:
         env:
           DOCKER_CLI_ACI: 1
 
-  # deploy:    
-  #      needs: build  
-  #      runs-on: [self-hosted]  
-  #      steps:
-  #        - name: Pull the docker image
-  #          run: docker pull marcusb2006/netflix:latest
-  #        - name: Trivy image scan
-  #          run: trivy image marcusb2006/netflix:latest
-  #        - name: Run the container netflix
-  #          run: docker run -d --name netflix -p 8081:80 marcusb2006/netflix:latest
+  deploy:    
+       needs: build  
+       runs-on: [self-hosted]  
+       steps:
+         - name: Pull the docker image
+           run: docker pull marcusb2006/netflix:latest
+         - name: Trivy image scan
+           run: trivy image marcusb2006/netflix:latest
+         - name: Run the container netflix
+           run: docker run -d --name netflix -p 8081:80 marcusb2006/netflix:latest
             
    
 
